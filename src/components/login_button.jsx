@@ -32,13 +32,15 @@ function OutlinedButtons(props) {
   return (
     
     <div className= {classes.root} >
+      
       <Button variant="outlined" 
-      onClick={event =>  window.location.href='www.google.com'}
       color="primary"
       className="register"
+      onClick={event =>  window.location.href='/signup'}
     >
         Register
       </Button>
+      
     </div>
     
   );

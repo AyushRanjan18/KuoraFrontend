@@ -23,7 +23,9 @@ function ContainedButtons() {
       <Button 
       variant="contained" 
       color="primary" 
-      className="login">
+      className="login"
+      onClick={event =>  window.location.href='login'}
+      >
         Login
       </Button>
     </div>

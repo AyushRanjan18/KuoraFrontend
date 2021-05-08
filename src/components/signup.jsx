@@ -1,4 +1,4 @@
-import React , { useState}from 'react';
+import React , { useState }from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +16,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -53,38 +54,81 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp() {
   const classes = useStyles();
+  const [input,setInput]= useState({ 
+    email :"",
+    password : "",
+    name :"",
+    bio : "",
+    //year:"",
+    signupas:"",
+    mobno:"",
+    //pic:"../utilities/1.jpg",
+    postcount:"0",
+    check : ""
+  })
+    function handleInput(event){
+      const {name, value} = event.target;
 
-    const [userRegistration, setuserRegistration] = useState({
-        firstName :"",
-        lastName :"",
-        email : "",
-        password : "",
-        selected : "",
-        bio : "",
-        check : "",
-    });
-
-   const handleInput =(e)=> {
-        const name = e.target.name;
-        const value = e.target.value;
-        console.log(name,value);
-        setuserRegistration({... userRegistration, [name] : value})
-   }
-   const [records, setrecords] = useState([]);
-    const handleSubmit =(e)=> {
-        e.preventDefault();
-
-        const newRecord = {... userRegistration,id : new Date().getTime().toString()}
-        console.log(records);
-        setrecords([... records, newRecord]);
-        setuserRegistration({firstName :"",
-        lastName :"",
-        email : "",
-        password : "",
-        selected : "",
-        bio : "",
-        check : "",});
+      setInput(prevInput => {
+        return {
+          ...prevInput,
+          [name]:value
+        }
+      })
+     
     }
+    
+  
+
+    function handleSubmit(event){
+        event.preventDefault();
+        console.log(input);
+        if(input.password != input.confirmpassword){
+          alert("Not same");
+          //document.getElementById("password").setAttribute("error","1")
+        }
+        else if((input.mobno).length<10 || (input.mobno).length>10){
+          alert("Invalid mobile no")
+        }
+        else{
+        const newRecord ={
+          name: input.firstName,
+          email : input.email,
+          password : input.password,
+          //gender : input.lastName,
+          bio : input.bio,
+          signupas : input.signupas,
+          //year:input.year,
+          mobno:input.mobno,
+          //pic:input.pic,
+          postcount:input.postcount,
+          check : ""
+        }
+      
+        axios.post('http://localhost:3001/register',newRecord)
+        .then(response => {
+          var x= response.data;
+          var y= response.data.user;
+          if(x.code===200){
+            
+            
+            window.location.href="main";
+          }
+          else if(x.code===409){
+            alert("User Already exist!");
+            window.location.href="login";
+          }
+          //var y=response.data;
+          /*if(x===200){
+              window.location.href="main";
+          }
+          else{
+              window.location.href="Error";
+          }*/
+          console.log(y);
+      })
+    }
+  }
      return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -95,38 +139,25 @@ function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
+        <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                value={userRegistration.firstName}
+                value={input.name}
                 onChange={handleInput}
                 autoComplete="fname"
-                name="firstName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="name"
+                label="Name"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                value={userRegistration.lastName}
-                onChange={handleInput}
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={userRegistration.email}
+                value={input.email}
                 onChange={handleInput}
                 variant="outlined"
                 required
@@ -137,9 +168,11 @@ function SignUp() {
                 autoComplete="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
-                value={userRegistration.password}
+                
+                error={0}
+                value={input.password}
                 onChange={handleInput}
                 variant="outlined"
                 required
@@ -151,13 +184,39 @@ function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                value={input.confirmpassword}
+                onChange={handleInput}
+                variant="outlined"
+                required
+                fullWidth
+                name="confirmpassword"
+                label="Confirm Password"
+                type="password"
+                id="confirmpassword"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                value={input.mobno}
+                onChange={handleInput}
+                variant="outlined"
+                required
+                fullWidth
+                id="mobno"
+                label="Mobile No"
+                name="mobno"
+                autoComplete="mobno"
+              />
+            </Grid>
             <Grid item xs ={12}>
-            <FormControl component="fieldset" required fullWidth value={userRegistration.selected}
-                onChange={handleInput}> 
+            
             <FormLabel component="legend"  style={{marginBottom : "15px"}}>Register as -</FormLabel>
-                <RadioGroup row aria-label="position" name="position" defaultValue="top"  style={{marginBottom : "-15px"}}>
+                <RadioGroup row aria-label="position"  name="signupas" value = {input.signupas} onChange={handleInput}  defaultValue="top"  style={{marginBottom : "-15px"}}>
                     <FormControlLabel
-                    value="teaching"
+                    value= "teaching"
                     control={<Radio color="primary" />}
                     label="Teacher"
                     labelPlacement="start"
@@ -178,11 +237,11 @@ function SignUp() {
                     required
                     />
                 </RadioGroup>
-    </FormControl>
+    
             </Grid>
             <Grid item xs ={12}>
                 <TextField
-                value={userRegistration.bio}
+                value={input.bio}
                 onChange={handleInput}
                 name="bio"
                 id="standard-multiline-static"
@@ -196,7 +255,7 @@ function SignUp() {
 
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="primary" value={userRegistration.check}
+                control={<Checkbox color="primary" value={input.check}
                 onChange={handleInput} />}
                 label="I agree to the Terms and Conditions"
                 required
@@ -204,7 +263,7 @@ function SignUp() {
             </Grid>
           </Grid>
           <Button
-            type="submit"
+            onClick={handleSubmit}
             fullWidth
             variant="contained"
             color="primary"
