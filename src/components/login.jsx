@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ Component , useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,9 +13,13 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-import Route from "react-router-dom/Route";
-import { BrowserRouter as Router } from "react-router-dom";
+//import jwt_decode from 'jwt-decode';
+//import Googleauth from "./google-auth";
+//import Route from "react-router-dom/Route";
+//import { BrowserRouter as Router } from "react-router-dom";
 //import Main from "./main";
+//import React,{Component,useState} from 'react'
+import GoogleLogin from 'react-google-login'
 function Copyright() {
     
   return (
@@ -50,8 +54,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+// *******
+const onFailure = (res) =>{
+  console.log(res);
+}
+
+const onSuccess = (res) =>{
+  var p = res.profileObj;
+  // var input = document.getElementById ("n");
+  // input.placeholder = p.name;
+  const newGoogle ={
+    name: p.name,      
+    email : p.email,
+    
+    
+  }
+  axios.post('http://localhost:3001/login_google_api',newGoogle)
+  .then(response => {
+      var Google= response.data;
+      var y=response.data.token;
+      if(Google.code===200){
+          window.location.href="main";
+      }
+      else{
+         // alert(x.message);
+          document.getElementById("password").setAttribute("error","1");
+          //window.location.href="Error";
+      }
+     // console.log(x);
+  })
+}
+
 function SignIn() {
   const classes = useStyles();
+  //console.log(p);
   const [input,setInput]= useState({ 
     email :"",
     password : "",
@@ -82,15 +119,26 @@ function SignIn() {
         axios.post('http://localhost:3001/login',newRecord)
         .then(response => {
             var x= response.data;
-            var y=response.data.token;
+            var token=response.data.token;
+            
+             
             if(x.code===200){
-                window.location.href="main";
+              var decoded=JSON.parse(atob(token.split('.')[1]));
+              console.log(decoded);
+              localStorage.setItem('Name',decoded.name);
+              localStorage.setItem('email',decoded.email);
+              localStorage.setItem('password',decoded.password);
+              localStorage.setItem('bio',decoded.bio);
+              localStorage.setItem('signupas',decoded.signupas);
+              localStorage.setItem('mobno',decoded.mobno);
+                //window.location.href="main";
             }
             else{
-                alert(x.message);
+               // alert(x.message);
+                document.getElementById("password").setAttribute("error","1");
                 //window.location.href="Error";
             }
-            console.log(x,y);
+            //console.log(x,y);
         })
     }
     return (
@@ -118,6 +166,7 @@ function SignIn() {
             autoFocus
           />
           <TextField
+          error={0}
             value={input.password}
             onChange={handleInput}
             variant="outlined"
@@ -143,6 +192,25 @@ function SignIn() {
           >
             Sign In
           </Button>
+
+          {/* *********************************************** */}
+
+            <div>
+            <center><GoogleLogin
+            clientId = "879230929023-drituuib54lmr2svuie0vb9alc7nur9r.apps.googleusercontent.com"
+            buttonText = "Signin with Google"
+            onSuccess = {onSuccess}
+            onFailure = {onFailure}
+            cookiePolicy = {'single_host_origin'}
+            isSignedIn = {true}
+         /></center><br/></div>
+
+        <p id="in"></p>
+
+          {/* ****************************************************** */}
+
+
+          {/* <Googleauth /> */}
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

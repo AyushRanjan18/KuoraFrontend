@@ -4,14 +4,16 @@ import OutlinedButtons from "./components/login_button";
 import ContainedButtons from "./components/register_button";
 import Route from "react-router-dom/Route";
 import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router,Switch } from "react-router-dom";
 import Login from "./components/login";
 import SignUp from "./components/signup";
 //import OutlinedButtons from "./components/login_button";
-//import Main from "./components/main";
+import Main from "./components/main";
 const App = () => {
   return (
+    
     <Router>
+      <Switch>
     <Route path ="/" exact render={
       () =>{
         return(
@@ -34,7 +36,9 @@ const App = () => {
     }/>
     <Route path="/signup" exact component={SignUp}/>
     <Route path="/login" exact component={Login}/>
-        </Router>   
+    <Route path="/main"><Main /></Route>
+    </Switch>
+        </Router>  
   )
 }
 

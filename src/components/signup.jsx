@@ -92,7 +92,7 @@ function SignUp() {
         }
         else{
         const newRecord ={
-          name: input.firstName,
+          name: input.name,
           email : input.email,
           password : input.password,
           //gender : input.lastName,
@@ -110,13 +110,17 @@ function SignUp() {
           var x= response.data;
           var y= response.data.user;
           if(x.code===200){
-            
-            
+            localStorage.setItem("Name",y.name);
+            localStorage.setItem("email",y.email);
+            localStorage.setItem("password",y.password);
+            localStorage.setItem("bio",y.bio);
+            localStorage.setItem("mobno",y.mobno);
+            localStorage.setItem("signupas",y.signupas);
             window.location.href="main";
           }
           else if(x.code===409){
             alert("User Already exist!");
-            window.location.href="login";
+           // window.location.href="login";
           }
           //var y=response.data;
           /*if(x===200){
@@ -125,7 +129,7 @@ function SignUp() {
           else{
               window.location.href="Error";
           }*/
-          console.log(y);
+          console.log(x,y);
       })
     }
   }

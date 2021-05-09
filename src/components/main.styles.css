@@ -1,178 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
-*{
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-decoration: none;
+.sidebar{
+    position: fixed;
+    width: 20vw;
+    border-right: 2px solid rgb(216, 213, 213);
+    height: 100vh;
+    background-image:linear-gradient(rgba(255, 255, 255, 0.651),rgba(0, 99, 5, 0.342));
 }
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #070707!important;
+.sidebar .x{
+    color: green;
 }
-.sidebar {
-  position: absolute;
-  left: -250px;
-  width: 250px;
-  height: 100%;
-  background: #1E5F74;
-  transition: all .5s ease;
-  color: white;
+.sidebar .y{
+    color: rgb(9, 80, 9);
 }
-.sidebar header {
-  font-size: 22px;
-  color: white;
-  line-height: 70px;
-  text-align: center;
-  background: #1E5F74;
-  user-select: none;
-  margin-bottom: 25px;
-}
-.sidebar ul a{
-  display: block;
-  height: 100%;
-  width: 100%;
-  line-height: 65px;
-  font-size: 20px;
-  color: white;
-  padding-left: 40px;
-  box-sizing: border-box;
-  transition: .4s;
-}
-ul li:hover a{
-
-  background: #133B5C;
-}
-.sidebar ul a svg{
-  margin-right: 16px;
-  margin-bottom: -5px;
-}
-#check{
-  display: none;
-}
-label #btn,label #cancel{
-  position: absolute;
-  background: #1E5F74;
-  border-radius: 3px;
-  cursor: pointer;
-}
-label #btn{
-  left: 40px;
-  top: 25px;
-  font-size: 35px;
-  color: white;
-  padding: 6px 12px;
-  transition: all .5s;
-}
-label #cancel{
-  z-index: 1111;
-  left: -195px;
-  top: 57px;
-  font-size: 20px;
-  color: #0a5275;
-  padding: 4px 9px;
-  transition: all .5s ease;
-}
-#check:checked ~ .sidebar{
-  left: 0;
-}
-#check:checked ~ label #btn{
-  left: 250px;
-  opacity: 0;
-  pointer-events: none;
-}
-#check:checked ~ label #cancel{
-  left: 195px;
-}
-#check:checked ~ section{
-  margin-left: 250px;
-}
-.sidebar .top{
-    position: relative;
-    top : 55px;
-    left: 20px;
-}
-.home h1{
- position: absolute;
- top: 100px;
- left: 350px;
- font-size: 35px;
- font-weight: lighter;
-}
-.aboutme{
-    display: none;
-}
-.aboutme h1{
-position: absolute;
- top: 100px;
- left: 350px;
- font-size: 35px;
- font-weight: lighter;
-}
-.searchbox{
-    background-color: white;
+.Logout{
     position: absolute;
-    top: 25%;
-    left: 20%;
-    transition: .4s;
-    width: 70vw;
-    padding: 30px;
-    box-shadow: 5px 5px 5px rgb(230, 223, 223);
-}
-.searchbox input{
-    width: 150px;
-    padding: 10px 15px;
-    margin-right: 25px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 3px solid black;
-    color: black
-   
-}
-.searchbox input::placeholder{
-    color: black;
+    bottom: 0;
+   width: 20vw;
     
 }
-.searchbox svg{
-    position: relative;
-    top: 12px;
-    left: -35px;
-    margin-right: 50px;
+.Logout .x{
+    color: green;
 }
-.aboutme .hardcode{
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    padding: 20px;
-    background-color: white;
-    width: 70vw;
-    min-height: 60vh;
-}
-.aboutme .hardcode p{
-    margin: 5px;
-}
-.data{
-    position: absolute !important;
-    top: 40% !important;
-    left: 20% !important;
-    background-color: white !important;
-    padding: 20px !important;
-    width: 71.3vw !important;
-    box-shadow: 5px 5px 5px rgb(230, 223, 223) !important;
-}
-table th{
-font-weight: lighter;
-padding: 10px;
-}
-table td{
-    padding: 10px;
-    text-align: center;
-}
-button{
-  float: right;
-  margin-right: 50px;
-  padding: 5px;
-  background-color: rgb(4, 83, 148);
-  color: white;
-  width: 60px;
-  border-radius: 20px;
+.feed{
+    float: right;
+    width: 80vw;
+    background-color:gray;
 }
