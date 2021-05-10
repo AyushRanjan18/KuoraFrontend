@@ -64,8 +64,7 @@ const onSuccess = (res) =>{
   var p = res.profileObj;
   // var input = document.getElementById ("n");
   // input.placeholder = p.name;
-  const newGoogle ={
-    name: p.name,      
+  const newGoogle ={      
     email : p.email,
     
     
@@ -73,8 +72,16 @@ const onSuccess = (res) =>{
   axios.post('http://localhost:3001/login_google_api',newGoogle)
   .then(response => {
       var Google= response.data;
-      var y=response.data.token;
+      var token=response.data.token;
       if(Google.code===200){
+              var decoded=JSON.parse(atob(token.split('.')[1]));
+              console.log(decoded);
+              localStorage.setItem('Name',decoded.name);
+              localStorage.setItem('email',decoded.email);
+              localStorage.setItem('password',decoded.password);
+              localStorage.setItem('bio',decoded.bio);
+              localStorage.setItem('signupas',decoded.signupas);
+              localStorage.setItem('mobno',decoded.mobno);
           window.location.href="main";
       }
       else{
@@ -82,7 +89,7 @@ const onSuccess = (res) =>{
           document.getElementById("password").setAttribute("error","1");
           //window.location.href="Error";
       }
-     // console.log(x);
+      //console.log(Google);
   })
 }
 
@@ -120,7 +127,7 @@ function SignIn() {
         .then(response => {
             var x= response.data;
             var token=response.data.token;
-            
+            console.log(x);
              
             if(x.code===200){
               var decoded=JSON.parse(atob(token.split('.')[1]));
@@ -131,7 +138,7 @@ function SignIn() {
               localStorage.setItem('bio',decoded.bio);
               localStorage.setItem('signupas',decoded.signupas);
               localStorage.setItem('mobno',decoded.mobno);
-                //window.location.href="main";
+              window.location.href="main";
             }
             else{
                // alert(x.message);
@@ -195,15 +202,15 @@ function SignIn() {
 
           {/* *********************************************** */}
 
-            <div>
+            {/* <div> 
             <center><GoogleLogin
             clientId = "879230929023-drituuib54lmr2svuie0vb9alc7nur9r.apps.googleusercontent.com"
             buttonText = "Signin with Google"
             onSuccess = {onSuccess}
             onFailure = {onFailure}
-            cookiePolicy = {'single_host_origin'}
+            //cookiePolicy = {'single_host_origin'}
             isSignedIn = {true}
-         /></center><br/></div>
+         /></center><br/></div>*/}
 
         <p id="in"></p>
 

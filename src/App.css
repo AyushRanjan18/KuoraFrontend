@@ -25,15 +25,13 @@ body {
   font-weight: bold;
   letter-spacing: 5px;
   word-spacing: 10px;
-  font-size: 70px;
+  font-size: 50px;
   color: rgba(2, 66, 2, 0.966);
   font-family:New Century Schoolbook, TeX Gyre Schola, serif;
   font-style: italic;
 }
 .image_div p{
   font-size: 20px;
-  word-spacing: 5px;
-  letter-spacing: 3px;
 }
 .image_div img{
   margin: 190px 15px 0px 150px;
@@ -124,11 +122,12 @@ body {
   }
   .info p{
     font-size: 11px;
-    padding-top: 15px;
+   
   }
   .info h2{
     font-size: 15px;
-    padding-top: 10px;
+    margin-top: -15px;
+    margin-bottom: 20px;
   }
 .info OutlinedButtons {
   margin-left: 100px;

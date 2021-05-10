@@ -1,9 +1,14 @@
 .sidebar{
     position: fixed;
+    top: 35vh;
+    bottom: 4vh;
     width: 20vw;
     border-right: 2px solid rgb(216, 213, 213);
-    height: 100vh;
+    left: 2vw;
+    border-radius: 10px;
     background-image:linear-gradient(rgba(255, 255, 255, 0.651),rgba(0, 99, 5, 0.342));
+    box-shadow: 4px 5px 15px rgb(1, 65, 1);
+    height: 60vh;
 }
 .sidebar .x{
     color: green;
@@ -12,8 +17,8 @@
     color: rgb(9, 80, 9);
 }
 .Logout{
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    bottom: -2vh;
    width: 20vw;
     
 }
@@ -21,7 +26,22 @@
     color: green;
 }
 .feed{
+    position: relative;
+    top: 12vh;
+    right: 2vw;
     float: right;
-    width: 80vw;
-    background-color:gray;
+    width: 75vw;
+    
+    border-radius: 15px;
+}
+#othercards{
+
+    position: fixed;
+    right: 2vw;
+    top: 12vh;
+    width: 22vw!important;
+    border-radius: 10px;
+    background-image:linear-gradient(rgba(255, 255, 255, 0.651),rgba(0, 99, 5, 0.342));
+    box-shadow: 4px 5px 15px rgb(1, 65, 1);
+    height: 30vh!important;
 }
